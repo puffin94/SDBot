@@ -7,6 +7,7 @@ import com.lundy.jack.SDBot.listeners.VTTListener;
 import org.javacord.api.DiscordApi;
 import org.javacord.api.DiscordApiBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -31,6 +32,9 @@ public class SdBotApplication {
     @Autowired
     DndListener dndListener;
 
+    @Value("${Discord.Token}")
+    private String token;
+
     public static void main(String[] args) {
         SpringApplication.run(SdBotApplication.class, args);
     }
@@ -39,13 +43,11 @@ public class SdBotApplication {
     @ConfigurationProperties(value = "discord-api")
     public DiscordApi discordApi() {
 
-        String token = env.getProperty("TOKEN");
-
         DiscordApi api = new DiscordApiBuilder().setToken(token)
                 .setAllNonPrivilegedIntents()
                 .login()
                 .join();
-            addListeners(api);
+        addListeners(api);
         return api;
     }
 
