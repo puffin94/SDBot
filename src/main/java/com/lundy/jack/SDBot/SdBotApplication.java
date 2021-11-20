@@ -1,6 +1,9 @@
 package com.lundy.jack.SDBot;
 
+import com.lundy.jack.SDBot.listeners.CommandsListener;
+import com.lundy.jack.SDBot.listeners.DndListener;
 import com.lundy.jack.SDBot.listeners.PingListener;
+import com.lundy.jack.SDBot.listeners.VTTListener;
 import org.javacord.api.DiscordApi;
 import org.javacord.api.DiscordApiBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,15 +16,24 @@ import org.springframework.core.env.Environment;
 @SpringBootApplication
 public class SdBotApplication {
 
-    public static void main(String[] args) {
-        SpringApplication.run(SdBotApplication.class, args);
-    }
-
     @Autowired
     private Environment env;
 
     @Autowired
     PingListener pingListener;
+
+    @Autowired
+    VTTListener vttListener;
+
+    @Autowired
+    CommandsListener commandsListener;
+
+    @Autowired
+    DndListener dndListener;
+
+    public static void main(String[] args) {
+        SpringApplication.run(SdBotApplication.class, args);
+    }
 
     @Bean
     @ConfigurationProperties(value = "discord-api")
@@ -33,7 +45,14 @@ public class SdBotApplication {
                 .setAllNonPrivilegedIntents()
                 .login()
                 .join();
-        api.addMessageCreateListener(pingListener);
+            addListeners(api);
         return api;
+    }
+
+    public void addListeners(DiscordApi api) {
+        api.addMessageCreateListener(commandsListener);
+        api.addMessageCreateListener(pingListener);
+        api.addMessageCreateListener(vttListener);
+        api.addMessageCreateListener(dndListener);
     }
 }

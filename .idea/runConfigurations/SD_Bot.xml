@@ -1,0 +1,13 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="SD Bot" type="Application" factoryName="Application">
+    <envs>
+      <env name="VTTURL" value="https://puffin94.eu.forge-vtt.com/game" />
+      <env name="TOKEN" value="OTExNTgwMTkxODkyMDYyMjc5.YZjdNg.lH-ksqFicOGMYCYxtGDvVayYBtk" />
+    </envs>
+    <option name="MAIN_CLASS_NAME" value="com.lundy.jack.SDBot.SdBotApplication" />
+    <module name="SDBot" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>
