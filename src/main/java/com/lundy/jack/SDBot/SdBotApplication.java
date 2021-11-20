@@ -1,9 +1,6 @@
 package com.lundy.jack.SDBot;
 
-import com.lundy.jack.SDBot.listeners.CommandsListener;
-import com.lundy.jack.SDBot.listeners.DndListener;
-import com.lundy.jack.SDBot.listeners.PingListener;
-import com.lundy.jack.SDBot.listeners.VTTListener;
+import com.lundy.jack.SDBot.listeners.*;
 import org.javacord.api.DiscordApi;
 import org.javacord.api.DiscordApiBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +29,9 @@ public class SdBotApplication {
     @Autowired
     DndListener dndListener;
 
+    @Autowired
+    TimeListener timeListener;
+
     @Value("${Discord.Token}")
     private String token;
 
@@ -56,5 +56,6 @@ public class SdBotApplication {
         api.addMessageCreateListener(pingListener);
         api.addMessageCreateListener(vttListener);
         api.addMessageCreateListener(dndListener);
+        api.addMessageCreateListener(timeListener);
     }
 }

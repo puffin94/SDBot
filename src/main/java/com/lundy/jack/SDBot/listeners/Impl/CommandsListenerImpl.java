@@ -11,8 +11,10 @@ public class CommandsListenerImpl implements CommandsListener {
         String pingCommand = "!ping - a left over command from testing";
         String vttCommand = "!vtt - provides link to the Virtual Table Top";
         String dndCommand = "!dnd - provides link to D&D Beyond";
+        String timeCommand = "!time - usable only by admins, It's Time";
         if (messageCreateEvent.getMessageContent().equalsIgnoreCase("--help")) {
-            messageCreateEvent.getChannel().sendMessage(pingCommand + "\n" + vttCommand + "\n" + dndCommand);
+            messageCreateEvent.getChannel().sendMessage(pingCommand + "\n" + vttCommand + "\n"
+                    + dndCommand + "\n" + timeCommand);
         }
     }
 }
