@@ -32,6 +32,9 @@ public class SdBotApplication {
     @Autowired
     TimeListener timeListener;
 
+    @Autowired
+    LuckyListener luckyListener;
+
     @Value("${Discord.Token}")
     private String token;
 
@@ -57,5 +60,6 @@ public class SdBotApplication {
         api.addMessageCreateListener(vttListener);
         api.addMessageCreateListener(dndListener);
         api.addMessageCreateListener(timeListener);
+        api.addMessageCreateListener(luckyListener);
     }
 }
