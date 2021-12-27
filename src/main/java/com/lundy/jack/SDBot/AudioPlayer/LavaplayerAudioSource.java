@@ -5,9 +5,7 @@ import com.sedmelluq.discord.lavaplayer.track.playback.AudioFrame;
 import org.javacord.api.DiscordApi;
 import org.javacord.api.audio.AudioSource;
 import org.javacord.api.audio.AudioSourceBase;
-import org.springframework.stereotype.Component;
 
-@Component
 public class LavaplayerAudioSource extends AudioSourceBase {
 
     private final AudioPlayer audioPlayer;
