@@ -13,15 +13,16 @@ public class LuckyListenerImpl implements LuckyListener {
         String name = messageCreateEvent.getMessageAuthor().getDisplayName();
 
         if (messageCreateEvent.getMessageContent().equalsIgnoreCase("!lucky")) {
-            messageCreateEvent.getChannel().sendMessage(name+"'s lucky number is "+ luckyNumberGenerator(name));
+            messageCreateEvent.getChannel().sendMessage(name + "'s lucky number is " + luckyNumberGenerator(name));
         }
     }
 
     public int luckyNumberGenerator(String name) {
+        System.out.println(name);
         char[] nameArray = name.toCharArray();
         int luckyNum = 0;
-        for (Character character: nameArray){
-            luckyNum += nameArray[character];
+        for (Character character : nameArray) {
+            luckyNum += character;
         }
         return luckyNum % nameArray.length;
     }
