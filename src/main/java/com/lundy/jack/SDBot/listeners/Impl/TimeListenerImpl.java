@@ -36,7 +36,6 @@ public class TimeListenerImpl implements TimeListener {
         if (messageCreateEvent.getMessageContent().equalsIgnoreCase("!time")) {
             if (messageCreateEvent.getMessage().getAuthor().isServerAdmin()) {
                 createVoiceChannelConnection(messageCreateEvent);
-                messageCreateEvent.getChannel().sendMessage("Bruce Buffer says 'It's TIME!!'");
             } else {
                 messageCreateEvent.getChannel().sendMessage("You must be a server admin to use the '!time' command");
             }
@@ -87,7 +86,7 @@ public class TimeListenerImpl implements TimeListener {
                         @Override
                         public void trackLoaded(AudioTrack audioTrack) {
                             player.playTrack(audioTrack);
-                            event.getMessage().getChannel().sendMessage("playing audio");
+                            event.getChannel().sendMessage("Bruce Buffer says 'It's TIME!!'");
                         }
 
                         @Override
