@@ -12,11 +12,9 @@ import com.sedmelluq.discord.lavaplayer.track.AudioPlaylist;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 import org.javacord.api.audio.AudioSource;
 import org.javacord.api.entity.channel.ServerVoiceChannel;
-import org.javacord.api.entity.message.Message;
 import org.javacord.api.entity.user.User;
 import org.javacord.api.event.message.MessageCreateEvent;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -29,7 +27,7 @@ public class TimeListenerImpl implements TimeListener {
     /**
      * This method instructs the Bot what to do when a message with the contents "!time" is created
      *
-     * @param messageCreateEvent
+     * @param messageCreateEvent - the message creation event
      */
     @Override
     public void onMessageCreate(MessageCreateEvent messageCreateEvent) {
@@ -63,7 +61,7 @@ public class TimeListenerImpl implements TimeListener {
     /**
      * used to create a connection to a voice channel
      *
-     * @param event
+     * @param event - the message creation event
      */
     public void createVoiceChannelConnection(MessageCreateEvent event) {
         long userVoiceChannel = getUserVoiceChannel(event);
@@ -74,7 +72,7 @@ public class TimeListenerImpl implements TimeListener {
 
                     //create player and playerManager
                     AudioPlayerManager playerManager = new DefaultAudioPlayerManager();
-                    playerManager.registerSourceManager(new YoutubeAudioSourceManager()); //use Youtube for audio
+                    playerManager.registerSourceManager(new YoutubeAudioSourceManager()); //use YouTube for audio
                     AudioPlayer player = playerManager.createPlayer();
 
                     // create audio source and add it to the connection's queue
