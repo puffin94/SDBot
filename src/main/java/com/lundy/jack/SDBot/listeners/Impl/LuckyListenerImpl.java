@@ -1,9 +1,11 @@
 package com.lundy.jack.SDBot.listeners.Impl;
 
 import com.lundy.jack.SDBot.listeners.LuckyListener;
+import lombok.extern.slf4j.Slf4j;
 import org.javacord.api.event.message.MessageCreateEvent;
 import org.springframework.stereotype.Component;
 
+@Slf4j
 @Component
 public class LuckyListenerImpl implements LuckyListener {
 
@@ -13,6 +15,7 @@ public class LuckyListenerImpl implements LuckyListener {
         String name = messageCreateEvent.getMessageAuthor().getDisplayName();
 
         if (messageCreateEvent.getMessageContent().equalsIgnoreCase("!lucky")) {
+            log.info("Responding to !lucky");
             messageCreateEvent.getChannel().sendMessage(name + "'s lucky number is " + luckyNumberGenerator(name));
         }
     }

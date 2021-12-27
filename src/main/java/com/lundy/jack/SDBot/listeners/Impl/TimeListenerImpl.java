@@ -10,6 +10,7 @@ import com.sedmelluq.discord.lavaplayer.source.youtube.YoutubeAudioSourceManager
 import com.sedmelluq.discord.lavaplayer.tools.FriendlyException;
 import com.sedmelluq.discord.lavaplayer.track.AudioPlaylist;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
+import lombok.extern.slf4j.Slf4j;
 import org.javacord.api.audio.AudioSource;
 import org.javacord.api.entity.channel.ServerVoiceChannel;
 import org.javacord.api.entity.user.User;
@@ -18,7 +19,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
-
+@Slf4j
 @Component
 public class TimeListenerImpl implements TimeListener {
 
@@ -32,9 +33,11 @@ public class TimeListenerImpl implements TimeListener {
     @Override
     public void onMessageCreate(MessageCreateEvent messageCreateEvent) {
         if (messageCreateEvent.getMessageContent().equalsIgnoreCase("!time")) {
+            log.info("Responding to !time request by {}",messageCreateEvent.getMessage().getAuthor().getDisplayName());
             if (messageCreateEvent.getMessage().getAuthor().isServerAdmin()) {
                 createVoiceChannelConnection(messageCreateEvent);
             } else {
+
                 messageCreateEvent.getChannel().sendMessage("You must be a server admin to use the '!time' command");
             }
         }
@@ -73,6 +76,7 @@ public class TimeListenerImpl implements TimeListener {
                     //create player and playerManager
                     AudioPlayerManager playerManager = new DefaultAudioPlayerManager();
                     playerManager.registerSourceManager(new YoutubeAudioSourceManager()); //use YouTube for audio
+
                     AudioPlayer player = playerManager.createPlayer();
 
                     // create audio source and add it to the connection's queue
@@ -83,6 +87,8 @@ public class TimeListenerImpl implements TimeListener {
                     playerManager.loadItem(audioURL, new AudioLoadResultHandler() {
                         @Override
                         public void trackLoaded(AudioTrack audioTrack) {
+                            audioTrack.setPosition(25500);
+                            log.info("Playing: "+audioTrack.getInfo().title);
                             player.playTrack(audioTrack);
                             event.getChannel().sendMessage("Bruce Buffer says 'It's TIME!!'");
                         }
@@ -106,12 +112,16 @@ public class TimeListenerImpl implements TimeListener {
                     });
 
                 }).exceptionally(e -> {
+                    log.error(e.toString());
                     e.printStackTrace();
                     return null;
                 });
             } catch (Exception e) {
+                log.error(e.toString());
                 e.printStackTrace();
             }
+        }else{
+            event.getMessage().getChannel().sendMessage("You must be connected to a voice channel to use the '!time' command");
         }
 
     }
