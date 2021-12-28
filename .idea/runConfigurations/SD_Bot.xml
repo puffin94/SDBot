@@ -2,6 +2,7 @@
   <configuration default="false" name="SD Bot" type="Application" factoryName="Application">
     <option name="MAIN_CLASS_NAME" value="com.lundy.jack.SDBot.SdBotApplication" />
     <module name="SDBot" />
+    <option name="VM_PARAMETERS" value="-Dspring.profiles.active=local" />
     <method v="2">
       <option name="Make" enabled="true" />
     </method>
